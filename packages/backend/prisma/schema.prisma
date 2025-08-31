@@ -9,14 +9,39 @@ generator client {
 }
 
 model Goal {
-  id          Int        @id @default(autoincrement())
-  userId      Int?
-  title       String
-  description String?
-  targetDate  DateTime
-  status      GoalStatus @default(PENDING)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id           Int           @id @default(autoincrement())
+  userId       Int?
+  title        String
+  description  String?
+  targetDate   DateTime
+  status       GoalStatus    @default(PENDING)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  chatMessages ChatMessage[]
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  name          String
+  email         String
+  password_hash String
+  createdAt     DateTime @default(now())
+}
+
+model ChatMessage {
+  id        Int      @id @default(autoincrement())
+  goalId    Int
+  message   String
+  createdAt DateTime @default(now())
+
+  goal Goal @relation(fields: [goalId], references: [id])
+}
+
+model ActionLog {
+  id        Int      @id @default(autoincrement())
+  content   String
+  logDate   DateTime @default(now())
+  createdAt DateTime @default(now())
 }
 
 enum GoalStatus {

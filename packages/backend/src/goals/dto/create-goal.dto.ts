@@ -1,12 +1,10 @@
 import {
   IsDateString,
-  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
   MaxLength,
 } from 'class-validator';
-import { GoalStatus } from '@prisma/client';
 
 export class CreateGoalDto {
   @IsString()
